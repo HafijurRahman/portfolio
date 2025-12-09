@@ -1,1 +1,531 @@
-<h1>Test Portfolio Site T2 - Md. Hafijur Rahman</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Hafijur Rahman - Hybrid QA Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM (Standard UMD Links) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons (for better UI elements) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="root">
+        <!-- Fallback/Loading message -->
+        <div class="p-6 text-center text-slate-400">Loading Portfolio...</div>
+    </div>
+
+    <!-- Configuration and Data -->
+    <script src="js/data/config.js"></script>
+    
+    <!-- Utility Functions -->
+    <script src="js/utils/helpers.js"></script>
+    
+    <!-- Portfolio Application - Inline to avoid CORS -->
+    <script type="text/babel">
+        // Make React hooks available
+        const { useState, useEffect, useRef } = React;
+
+        // Download CV Button Component
+        const DownloadCVButton = ({ classes }) => (
+            <a href={CONFIG.PROFILE.resumeUrl} target="_blank" download className={`flex items-center gap-2 font-semibold px-6 py-2 rounded-full text-slate-900 cta-button ${classes}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                    <path fillRule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.18-3.18a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.18 3.18V3a.75.75 0 0 1 .75-.75Zm-9 14.25a.75.75 0 0 1 .75.75v2.25c0 .414.336.75.75.75h14.5a.75.75 0 0 1 .75-.75v-2.25a.75.75 0 0 1 1.5 0v2.25A2.25 2.25 0 0 1 20.25 22H3.75A2.25 2.25 0 0 1 1.5 19.5v-2.25a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
+                </svg>
+                Download CV
+            </a>
+        );
+
+        // Animated Progress Bar Component
+        const AnimatedProgressBar = ({ name, level, color }) => {
+            const barRef = useRef(null);
+            const [isVisible, setIsVisible] = useState(false);
+
+            useEffect(() => {
+                const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                        observer.unobserve(entry.target);
+                    }
+                }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+                if (barRef.current) observer.observe(barRef.current);
+                return () => { if (barRef.current) observer.unobserve(barRef.current); };
+            }, []);
+
+            return (
+                <div className="mb-4" ref={barRef}>
+                    <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-slate-300">{name}</span>
+                        <span className={`text-xs font-semibold text-${color}`}>{level}%</span>
+                    </div>
+                    <div className="w-full progress-bar-bg rounded-full h-2">
+                        <div className={`h-2 rounded-full transition-all duration-1000 ease-out bg-${color}`} style={{ width: isVisible ? `${level}%` : '0%' }}></div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Navbar Component
+        const Navbar = () => {
+            const [scrolled, setScrolled] = useState(false);
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/95 shadow-xl backdrop-blur-sm py-3' : 'bg-transparent py-5'}`}>
+                    <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                        <div className="text-2xl font-extrabold font-mono tracking-tighter">
+                            <span className="text-cyan-400">Hafijur</span><span className="text-white">.QA</span>
+                        </div>
+                        <div className="hidden lg:flex space-x-8 text-sm font-medium text-slate-300">
+                            <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
+                            <a href="#principles" className="hover:text-cyan-400 transition-colors">Principles</a>
+                            <a href="#expertise" className="hover:text-cyan-400 transition-colors">Expertise</a>
+                            <a href="#experience" className="hover:text-cyan-400 transition-colors">Experience</a>
+                            <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
+                        </div>
+                        <DownloadCVButton classes="hidden sm:flex text-sm" />
+                    </div>
+                </nav>
+            );
+        };
+
+        // Hero Component
+        const Hero = () => {
+            const [scrollY, setScrollY] = useState(0);
+            useEffect(() => {
+                const handleScroll = () => setScrollY(window.scrollY);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const opacity = 1 - Math.min(scrollY / 600, 0.8);
+            const transform = `translateY(${scrollY * 0.3}px)`;
+
+            return (
+                <section id="about" className="min-h-screen flex items-center justify-center pt-24 relative overflow-hidden">
+                    <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 50% 10%, #22d3ee20, transparent 70%)' }}></div>
+                    <div className="max-w-7xl mx-auto px-6 z-10 text-center" style={{ opacity, transform, transition: 'transform 0s, opacity 0s' }}>
+                        <h2 className="text-xl text-cyan-400 font-mono mb-6 tracking-wide uppercase">{CONFIG.PROFILE.role}</h2>
+                        <h1 className="text-5xl md:text-8xl font-extrabold leading-tight mb-8 text-white">
+                            <span className="gradient-text">Bridging the gap between </span>
+                            <br className="hidden sm:block" />
+                            <span className="gradient-text">Manual Precision</span> & Automation Speed.
+                        </h1>
+                        <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-3xl mx-auto">{CONFIG.PROFILE.about}</p>
+                        <div className="flex justify-center gap-6">
+                            <DownloadCVButton classes="text-base" />
+                            <a href="#projects" className="flex items-center gap-2 font-semibold px-6 py-2 rounded-full text-cyan-400 border-2 border-cyan-400/50 hover:bg-cyan-500/10 transition-colors">
+                                View Work <i className="ph ph-arrow-right text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // HybridVisualSummary Component
+        const HybridVisualSummary = () => {
+            const lines = CONFIG.VISUAL_SNIPPET.code.trim().split('\n');
+            return (
+                <section className="pb-24 pt-12 bg-slate-900/40">
+                    <div className="max-w-3xl mx-auto px-6 relative">
+                        <div className="text-center mb-10">
+                            <h2 className="text-3xl font-bold mb-2">My <span className="gradient-text">Hybrid Workflow</span> in Action</h2>
+                            <p className="text-slate-400 max-w-xl mx-auto">The core logic: Rigorous manual testing for new features, automated speed for regression.</p>
+                        </div>
+                        <div className="code-window p-4 sm:p-6 pt-4 relative border border-slate-700/50">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="window-controls">
+                                    <div className="control-dot bg-red-500"></div>
+                                    <div className="control-dot bg-yellow-500"></div>
+                                    <div className="control-dot bg-green-500"></div>
+                                </div>
+                                <span className="font-mono text-xs sm:text-sm text-slate-500 truncate mx-2">{CONFIG.VISUAL_SNIPPET.title}</span>
+                                <div></div>
+                            </div>
+                            <pre className="text-xs sm:text-sm font-mono leading-relaxed">
+                                <code className="text-slate-300">
+                                    {lines.map((line, index) => {
+                                        const lineNumber = String(index + 1).padStart(2, '0');
+                                        let lineClass = 'text-slate-300';
+                                        if (line.trim().startsWith('//')) lineClass = 'text-green-400 italic';
+                                        else if (line.includes('if (') || line.includes('else {')) lineClass = 'text-cyan-400 font-semibold';
+                                        else if (line.includes('executeExploratoryTest') || line.includes('runCypressSuite')) lineClass = 'text-yellow-300';
+
+                                        return (
+                                            <div key={index} className="flex hover:bg-slate-800/50 transition-colors duration-100">
+                                                <span className="text-slate-600 w-6 sm:w-8 text-right pr-2 sm:pr-3 flex-shrink-0 select-none">{lineNumber}</span>
+                                                <span className={lineClass}>{line.replace(/\s/g, '\u00a0')}</span>
+                                            </div>
+                                        );
+                                    })}
+                                </code>
+                            </pre>
+                            <div className="absolute right-2 bottom-2 sm:right-4 sm:bottom-4 md:right-[-16px] md:bottom-[-16px] transition-all duration-500 hover:scale-105">
+                                <div className="glass-card hybrid-box p-3 sm:p-4 flex items-center gap-3 sm:gap-4 text-white min-w-32 sm:min-w-40 md:min-w-48">
+                                    <i className="ph ph-target text-2xl sm:text-3xl md:text-4xl text-white"></i>
+                                    <div>
+                                        <p className="text-xl sm:text-2xl font-extrabold leading-none">Zero</p>
+                                        <p className="text-xs font-mono tracking-widest uppercase mt-1">Bug Leakage</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // CorePrinciples Component
+        const CorePrinciples = () => (
+            <section id="principles" className="py-24">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">My Foundation</span>
+                        <h2 className="text-4xl font-extrabold mt-3">Driving Quality with <span className="gradient-text">Intent</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mt-4">The four pillars that define every testing strategy and execution in my workflow.</p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {CONFIG.CORE_PRINCIPLES.map((principle, index) => (
+                            <div key={index} className="glass-card p-6 rounded-xl text-center">
+                                <i className={`ph ${principle.icon} text-4xl gradient-text mb-4 inline-block`}></i>
+                                <h3 className="text-xl font-semibold mb-3 text-white">{principle.title}</h3>
+                                <p className="text-slate-400 text-sm">{principle.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        // CodePhilosophy Component
+        const CodePhilosophy = () => {
+            const lines = CONFIG.CODE_SNIPPET.code.trim().split('\n');
+            return (
+                <section id="code-philosophy" className="py-24">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="text-center mb-16">
+                            <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Engineering Mindset</span>
+                            <h2 className="text-4xl font-extrabold mt-3">Automation <span className="gradient-text">Code Philosophy</span></h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto mt-4">Strategic test execution based on risk and feature type.</p>
+                        </div>
+                        <div className="max-w-5xl mx-auto">
+                            <div className="code-window p-4 sm:p-6 pt-4 relative border border-slate-700/50">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="window-controls">
+                                        <div className="control-dot bg-red-500"></div>
+                                        <div className="control-dot bg-yellow-500"></div>
+                                        <div className="control-dot bg-green-500"></div>
+                                    </div>
+                                    <span className="font-mono text-xs sm:text-sm text-slate-500 truncate mx-2">{CONFIG.CODE_SNIPPET.title}</span>
+                                    <div></div>
+                                </div>
+                                <div className="overflow-hidden">
+                                    <pre className="text-xs font-mono leading-relaxed overflow-x-hidden">
+                                        <code className="text-slate-300 block">
+                                            {lines.map((line, index) => {
+                                                const lineNumber = String(index + 1).padStart(2, '0');
+                                                let lineClass = 'text-slate-300';
+                                                if (line.trim().startsWith('//') || line.trim().startsWith('/*') || line.trim().startsWith('*')) lineClass = 'text-green-400 italic';
+                                                else if (line.includes('const') || line.includes('if (') || line.includes('return')) lineClass = 'text-cyan-400 font-semibold';
+                                                else if (line.includes('console.log') || line.includes('Example:')) lineClass = 'text-yellow-300';
+                                                return (
+                                                    <div key={index} className="flex hover:bg-slate-800/50 transition-colors duration-100">
+                                                        <span className="text-slate-600 w-6 sm:w-8 text-right pr-2 sm:pr-3 flex-shrink-0 select-none">{lineNumber}</span>
+                                                        <span className={`${lineClass} break-all whitespace-pre-wrap`} style={{wordBreak: 'break-word'}}>{line}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // TechnicalExpertise Component
+        const TechnicalExpertise = () => (
+            <section id="expertise" className="py-24 bg-slate-900/40">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Skill Stack</span>
+                        <h2 className="text-4xl font-extrabold mt-3">Technical <span className="gradient-text">Expertise</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mt-4">A balanced profile of deep manual rigor and efficient automation engineering.</p>
+                    </div>
+                    <div className="grid lg:grid-cols-2 gap-12">
+                        <div className="glass-card p-8 rounded-xl">
+                            <h3 className="text-2xl font-bold mb-6 text-blue-400 flex items-center gap-3">
+                                <i className="ph ph-hand-tap text-3xl"></i> Manual & Hybrid Testing
+                            </h3>
+                            <div className="space-y-4">
+                                {CONFIG.SKILLS.manual.map((skill, index) => (<AnimatedProgressBar key={index} {...skill} />))}
+                            </div>
+                        </div>
+                        <div className="glass-card p-8 rounded-xl">
+                            <h3 className="text-2xl font-bold mb-6 text-cyan-400 flex items-center gap-3">
+                                <i className="ph ph-code-block text-3xl"></i> Automation & Frameworks
+                            </h3>
+                            <div className="space-y-4">
+                                {CONFIG.SKILLS.automation.map((skill, index) => (<AnimatedProgressBar key={index} {...skill} />))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Trackers Component
+        const Trackers = () => (
+            <section id="impact" className="py-24 bg-slate-900/40">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Measurable Results</span>
+                        <h2 className="text-4xl font-extrabold mt-3">QA Metrics & <span className="gradient-text">Impact</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mt-4">Quantifying success is crucial. These are the core metrics I focus on to ensure business value.</p>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {CONFIG.TRACKERS.map((tracker, index) => (
+                            <div key={index} className="glass-card p-6 rounded-xl text-center border-b-4 border-cyan-400/50">
+                                <p className="text-3xl sm:text-5xl font-extrabold gradient-text mb-2">{tracker.value}</p>
+                                <h3 className="text-sm font-mono text-slate-300 uppercase tracking-wider mb-2">{tracker.metric}</h3>
+                                <p className="text-xs text-slate-500">{tracker.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Certifications Component
+        const Certifications = () => (
+            <section id="certifications" className="py-24">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Formal Validation</span>
+                        <h2 className="text-4xl font-extrabold mt-3">Professional <span className="gradient-text">Certifications</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mt-4">Commitment to continuous learning and validated industry expertise.</p>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {CONFIG.CERTIFICATIONS.map((cert, index) => (
+                            <a key={index} href={cert.link} target="_blank" rel="noopener noreferrer" className="glass-card p-6 rounded-xl flex items-start gap-4 hover:bg-slate-700/50 transition-all duration-200 group">
+                                <i className="ph ph-seal-check text-3xl text-blue-400 mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <h3 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">{cert.title}</h3>
+                                    <p className="text-sm text-slate-400">{cert.issuer} ({cert.year})</p>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        // WorkExperience Component
+        const WorkExperience = () => (
+            <section id="experience" className="py-24 bg-slate-900/40">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Career Journey</span>
+                        <h2 className="text-4xl font-extrabold mt-3">Work <span className="gradient-text">Experience</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mt-4">Professional journey spanning quality assurance, automation engineering, and team leadership.</p>
+                    </div>
+                    <div className="space-y-8">
+                        {CONFIG.WORK_EXPERIENCE.map((job, index) => (
+                            <div key={index} className="glass-card p-6 sm:p-8 rounded-xl hover:bg-slate-700/50 transition-all duration-200">
+                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4">
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-white mb-1">{job.role}</h3>
+                                        <p className="text-lg text-cyan-400 font-semibold">{job.company}</p>
+                                    </div>
+                                    <div className="mt-2 sm:mt-0 sm:text-right">
+                                        <p className="text-sm font-mono text-slate-400">{job.period}</p>
+                                        <p className="text-xs text-slate-500 mt-1">{job.location}</p>
+                                    </div>
+                                </div>
+                                <ul className="space-y-2">
+                                    {job.highlights.map((highlight, idx) => (
+                                        <li key={idx} className="flex items-start gap-3 text-slate-300">
+                                            <i className="ph ph-check-circle text-cyan-400 text-lg mt-0.5 flex-shrink-0"></i>
+                                            <span className="text-sm">{highlight}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Projects Component
+        const Projects = () => (
+            <section id="projects" className="py-24 bg-slate-900/40">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Hands-On Experience</span>
+                        <h2 className="text-4xl font-extrabold mt-3">Key <span className="gradient-text">Projects & Frameworks</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mt-4">Showcasing depth in building efficient, scalable, and resilient test automation solutions.</p>
+                    </div>
+                    <div className="grid lg:grid-cols-4 gap-8">
+                        {CONFIG.PROJECTS.map((project, index) => (
+                            <div key={index} className="glass-card rounded-xl overflow-hidden flex flex-col">
+                                <img src={project.imageUrl} alt={project.title} className="w-full h-48 object-cover object-center" onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/1e293b/a5f3fc?text=Placeholder+Image"; }} />
+                                <div className="p-6 flex flex-col flex-grow">
+                                    <h3 className="text-xl font-bold mb-3 text-cyan-400">{project.title}</h3>
+                                    <p className="text-slate-400 text-sm mb-4 flex-grow">{project.description}</p>
+                                    <div className="flex justify-between items-center pt-4 border-t border-slate-700/50">
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.stack.map((tech, i) => (<span key={i} className="text-xs font-mono px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full">{tech}</span>))}
+                                        </div>
+                                        <a href={project.projectLink} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold flex items-center gap-1 px-3 py-1 rounded-full text-slate-900 cta-button hover:opacity-90 transition-opacity">
+                                            <i className="ph ph-link-simple text-base"></i> View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Contact Component
+        const Contact = () => (
+            <section id="contact" className="py-24">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <h2 className="text-4xl font-extrabold mb-4">Let's <span className="gradient-text">Connect</span></h2>
+                    <p className="text-slate-400 text-lg max-w-xl mx-auto mb-12">While I'm currently contributing to a reputed MNC, I'm open to exploring exceptional opportunities in QA Lead or Manager roles. I'm also available for part-time consultancy engagements. Feel free to reach out to discuss collaboration possibilities.</p>
+                    <div className="flex justify-center items-center gap-6 text-xl">
+                        <a href={`mailto:${CONFIG.PROFILE.email}`} className="text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-2">
+                            <i className="ph ph-envelope-simple text-3xl"></i>
+                            <span className="hidden sm:inline">{CONFIG.PROFILE.email}</span>
+                        </a>
+                        <a href={CONFIG.PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-cyan-400 transition-colors">
+                            <i className="ph-fill ph-linkedin-logo text-3xl"></i>
+                        </a>
+                        <a href={CONFIG.PROFILE.github} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-cyan-400 transition-colors">
+                            <i className="ph-fill ph-github-logo text-3xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Footer Component
+        const Footer = () => (
+            <footer className="bg-black/20 border-t border-slate-800/50 py-8">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-500 text-sm">
+                    <p>&copy; {new Date().getFullYear()} Md. Hafijur Rahman. All rights reserved.</p>
+                    <p className="mt-2 font-mono text-xs">Built with React & Tailwind CSS.</p>
+                </div>
+            </footer>
+        );
+
+        // TestMethodologies Component
+        const TestMethodologies = () => (
+            <section id="methodologies" className="py-24">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Testing Approach</span>
+                        <h2 className="text-4xl font-extrabold mt-3">Test <span className="gradient-text">Methodologies</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto mt-4">Comprehensive testing strategies ensuring quality across all layers of the application.</p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {CONFIG.TEST_METHODOLOGIES.map((method, index) => (
+                            <div key={index} className="glass-card p-6 rounded-xl hover:bg-slate-700/50 transition-all duration-200">
+                                <i className={`ph ${method.icon} text-4xl text-cyan-400 mb-4 inline-block`}></i>
+                                <h3 className="text-xl font-semibold mb-3 text-white">{method.title}</h3>
+                                <p className="text-slate-400 text-sm">{method.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        // ToolsTech Component
+        const ToolsTech = () => {
+            return (
+                <section id="tools" className="py-24 bg-slate-900/40">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="text-center mb-16">
+                            <span className="text-sm font-mono text-cyan-400 uppercase tracking-widest">Technology Stack</span>
+                            <h2 className="text-4xl font-extrabold mt-3">Tools & <span className="gradient-text">Technologies</span></h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto mt-4">Modern QA tools and platforms I work with daily to deliver quality software.</p>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                            {CONFIG.TOOLS_TECH.map((tool, index) => (
+                                <div key={index} className="glass-card p-3 rounded-lg flex flex-col items-center justify-center gap-2 hover:bg-slate-700/50 hover:scale-105 transition-all duration-200 group relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 bg-cyan-400/20 text-cyan-400 text-xs font-mono px-2 py-0.5 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                                        {tool.category}
+                                    </div>
+                                    <div className="w-12 h-12 flex items-center justify-center">
+                                        <img src={tool.icon} alt={tool.name} className="w-10 h-10 group-hover:scale-110 transition-transform" onError={(e) => { 
+                                            e.target.style.display = 'none';
+                                            e.target.nextElementSibling.style.display = 'block';
+                                        }} />
+                                        <i className="ph ph-code text-3xl text-cyan-400 hidden"></i>
+                                    </div>
+                                    <span className="text-xs text-slate-300 text-center font-medium group-hover:text-cyan-400 transition-colors">{tool.name}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-12 flex justify-center gap-3 flex-wrap">
+                            {[...new Set(CONFIG.TOOLS_TECH.map(tool => tool.category))].map((category, index) => (
+                                <span key={index} className="text-xs font-mono px-3 py-1.5 bg-slate-800/50 text-slate-400 rounded-full border border-slate-700/50">
+                                    {category}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            if (!CONFIG || !CONFIG.PROFILE) {
+                return (<div className="p-10 text-center text-red-500">Error: Configuration data is missing.</div>);
+            }
+            return (
+                <div className="antialiased">
+                    <Navbar /><Hero /><HybridVisualSummary /><CorePrinciples /><CodePhilosophy />
+                    <TechnicalExpertise /><TestMethodologies /><ToolsTech /><Trackers /><WorkExperience /><Certifications /><Projects /><Contact /><Footer />
+                </div>
+            );
+        };
+
+        // Initialize Application
+        try {
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(<App />);
+        } catch (error) {
+            console.error("React rendering failed:", error);
+            document.getElementById('root').innerHTML = `<div class="p-10 text-center text-red-500 bg-slate-900 min-h-screen"><h1 class="text-2xl font-bold mb-4">Critical Rendering Error</h1><p>The application failed to start. Check console: ${error.message}</p></div>`;
+        }
+    </script>
+</body>
+</html>
