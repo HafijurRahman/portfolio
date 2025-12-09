@@ -8,8 +8,8 @@ const CONFIG = {
     PROFILE: {
         name: "Md. Hafijur Rahman",
         role: "Senior Hybrid QA Engineer",
-        tagline: "Bridging the gap between Manual Precision & Automation Speed.",
-        about: "I am a versatile Software Test Engineer with expertise in the full Quality Assurance lifecycle. My hybrid approach combines rigorous manual exploratory testing to understand the 'What' and 'Why', followed by robust automation using tools like Cypress, Playwright, Robot Framework and Selenium to handle repetitive regression tasks efficiently. I deliver quality with measurable business impact.",
+        tagline: "Bridging Manual Precision, Automation Speed & AI Intelligence.",
+        about: "I am a forward-thinking Software Test Engineer leveraging AI-powered tools and automation to revolutionize the Quality Assurance lifecycle. My hybrid approach combines strategic manual exploratory testing with intelligent automation frameworks (Cypress, Playwright, Robot Framework) and cutting-edge AI tools (GitHub Copilot, ChatGPT, Claude) to accelerate test creation, optimize coverage, and deliver exceptional quality with measurable business impact. I harness AI to boost productivity by 40% while maintaining rigorous testing standards.",
         email: "hafijurandrahman@gmail.com",
         linkedin: "https://www.linkedin.com/in/md-hafijur-rahman",
         github: "https://github.com/HafijurRahman",
@@ -18,13 +18,14 @@ const CONFIG = {
 
     // Visual Code Snippet for Hybrid Workflow
     VISUAL_SNIPPET: {
-        title: "hybrid_workflow.js",
+        title: "ai_hybrid_workflow.js",
         code: `
 if (feature.isNew) {
-    // Manual First (Exploratory)
+    // AI-Assisted Manual Exploratory
+    aiGenerateTestScenarios();
     executeExploratoryTest();
 } else {
-    // Automation (Regression)
+    // AI-Optimized Automation
     runCypressSuite();
 }
 `
@@ -38,9 +39,9 @@ if (feature.isNew) {
             desc: "Every testing effort begins with clear goals, risk assessment, and a tailored test plan (Manual/Automation mix)."
         },
         {
-            title: "Optimized Automation",
+            title: "AI-Enhanced Automation",
             icon: "ph-robot",
-            desc: "Focusing automation efforts strictly on high-risk, high-return regression paths to maximize ROI and speed."
+            desc: "Leveraging AI tools to generate, optimize, and maintain automation scripts, focusing on high-risk paths to maximize ROI and accelerate delivery."
         },
         {
             title: "Exploratory Depth",
@@ -48,9 +49,9 @@ if (feature.isNew) {
             desc: "Prioritizing deep, human-led exploratory testing on new features to uncover non-obvious, critical bugs."
         },
         {
-            title: "Impact Measurement",
+            title: "AI-Driven Efficiency",
             icon: "ph-chart-line",
-            desc: "Translating QA results into business metrics: reduced execution time, lower defect leakage, and improved stability."
+            desc: "Using AI tools to boost productivity by 40%, accelerate test design, auto-generate documentation, and translate QA results into actionable business metrics."
         }
     ],
 
@@ -58,19 +59,27 @@ if (feature.isNew) {
     SKILLS: {
         manual: [
             { name: "Test Strategy & Planning", level: 95, color: "blue-400" },
-            { name: "Requirement Analysis (BRD/User Story)", level: 90, color: "blue-400" },
+            { name: "AI-Assisted Requirement Analysis", level: 92, color: "blue-400" },
             { name: "Exploratory & Usability Testing", level: 92, color: "blue-400" },
             { name: "Jira / TestRail Management", level: 90, color: "blue-400" },
             { name: "Agile / Scrum Methodologies", level: 95, color: "blue-400" },
             { name: "SQL Database Verification (DML/DDL)", level: 85, color: "blue-400" }
         ],
         automation: [
-            { name: "Cypress & Playwright (Modern Frameworks)", level: 90, color: "cyan-400" },
+            { name: "Cypress & Playwright (AI-Enhanced)", level: 90, color: "cyan-400" },
             { name: "Selenium WebDriver (Java/Python)", level: 80, color: "cyan-400" },
             { name: "API Automation (RestAssured/Postman)", level: 88, color: "cyan-400" },
             { name: "Performance Testing (JMeter/K6)", level: 75, color: "cyan-400" },
             { name: "CI/CD Integration (Jenkins/GitHub Actions)", level: 85, color: "cyan-400" },
             { name: "Git Version Control", level: 98, color: "cyan-400" }
+        ],
+        ai: [
+            { name: "GitHub Copilot (Code Generation)", level: 95, color: "purple-400" },
+            { name: "ChatGPT & Claude (Test Design)", level: 93, color: "purple-400" },
+            { name: "AI-Powered Test Case Generation", level: 90, color: "purple-400" },
+            { name: "Prompt Engineering for QA", level: 92, color: "purple-400" },
+            { name: "AI Documentation & Reporting", level: 88, color: "purple-400" },
+            { name: "AI-Assisted Code Review", level: 90, color: "purple-400" }
         ]
     },
 
@@ -259,14 +268,14 @@ const executeOptimalTest = (featureName: string, riskLevel: 'High' | 'Medium' | 
             title: "High-Volume API Load Testing Suite",
             stack: ["JMeter", "BlazeMeter", "AWS S3", "Grafana"],
             description: "Designed and executed comprehensive load and stress tests against critical microservices, simulating 10k concurrent users. Identified and resolved three major bottlenecks in the payment gateway.",
-            imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&q=80",
+            imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=400&fit=crop&q=80",
             projectLink: "https://github.com/mhrahman-qa/api-load-testing-suite"
         },
         {
             title: "Database Verification Tool (Python)",
             stack: ["Python", "Pandas", "PyMySQL", "SQLAlchemy"],
             description: "Scripted a Python utility to cross-validate data input via the UI (Selenium) against the backend database records across multiple environments, drastically improving data integrity testing speed.",
-            imageUrl: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=600&h=400&fit=crop&q=80",
+            imageUrl: "https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?w=600&h=400&fit=crop&q=80",
             projectLink: "https://github.com/mhrahman-qa/db-verification-tool"
         },
         {
@@ -308,7 +317,7 @@ const executeOptimalTest = (featureName: string, riskLevel: 'High' | 'Medium' | 
             title: "Performance Monitoring Dashboard",
             stack: ["K6", "Grafana", "PostgreSQL", "Docker"],
             description: "Built an automated performance testing pipeline with K6, integrated with Grafana dashboards for real-time metrics visualization and historical performance trend analysis.",
-            imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&q=80",
+            imageUrl: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&h=400&fit=crop&q=80",
             projectLink: "https://github.com/mhrahman-qa/k6-performance-monitoring"
         },
         {
@@ -322,7 +331,7 @@ const executeOptimalTest = (featureName: string, riskLevel: 'High' | 'Medium' | 
             title: "Test Data Management Framework",
             stack: ["Python", "PostgreSQL", "MongoDB", "Docker"],
             description: "Designed a centralized test data management system supporting multiple databases, enabling dynamic test data generation, cleanup, and isolation across test environments.",
-            imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop&q=80",
+            imageUrl: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop&q=80",
             projectLink: "https://github.com/mhrahman-qa/test-data-framework"
         },
         {
@@ -420,7 +429,29 @@ const executeOptimalTest = (featureName: string, riskLevel: 'High' | 'Medium' | 
         { name: "HTML5", category: "Programming", icon: "https://img.icons8.com/color/48/html-5.png" },
         { name: "CSS3", category: "Programming", icon: "https://img.icons8.com/color/48/css3.png" },
         { name: "AWS", category: "Cloud Platform", icon: "https://img.icons8.com/color/48/amazon-web-services.png" },
-        { name: "Azure", category: "Cloud Platform", icon: "https://img.icons8.com/fluency/48/azure-1.png" }
+        { name: "Azure", category: "Cloud Platform", icon: "https://img.icons8.com/fluency/48/azure-1.png" },
+        { name: "GitHub Copilot", category: "AI Tools", icon: "https://img.icons8.com/color/48/github-copilot.png" },
+        { name: "ChatGPT", category: "AI Tools", icon: "https://img.icons8.com/color/48/chatgpt.png" },
+        { name: "Claude AI", category: "AI Tools", icon: "https://img.icons8.com/color/48/artificial-intelligence.png" },
+        { name: "Gemini", category: "AI Tools", icon: "https://img.icons8.com/color/48/google-logo.png" },
+        { name: "Cursor AI", category: "AI Tools", icon: "https://img.icons8.com/color/48/cursor.png" },
+        { name: "V0 by Vercel", category: "AI Tools", icon: "https://img.icons8.com/color/48/vercel.png" },
+        { name: "DeepSeek", category: "AI Tools", icon: "https://img.icons8.com/color/48/search.png" },
+        { name: "Qwen", category: "AI Tools", icon: "https://img.icons8.com/color/48/cloud-development.png" },
+        { name: "Kimi", category: "AI Tools", icon: "https://img.icons8.com/color/48/bot.png" },
+        { name: "Groq", category: "AI Tools", icon: "https://img.icons8.com/color/48/processor.png" },
+        { name: "Meta AI", category: "AI Tools", icon: "https://img.icons8.com/color/48/meta.png" },
+        { name: "Perplexity", category: "AI Tools", icon: "https://img.icons8.com/color/48/search-database.png" },
+        { name: "Mistral AI", category: "AI Tools", icon: "https://img.icons8.com/color/48/wind.png" },
+        { name: "Blackbox AI", category: "AI Tools", icon: "https://img.icons8.com/color/48/code.png" },
+        { name: "Replit AI", category: "AI Tools", icon: "https://img.icons8.com/color/48/replit.png" },
+        { name: "Lovable AI", category: "AI Tools", icon: "https://img.icons8.com/color/48/heart.png" },
+        { name: "Bolt.new", category: "AI Tools", icon: "https://img.icons8.com/color/48/lightning-bolt.png" },
+        { name: "Windsurf", category: "AI Tools", icon: "https://img.icons8.com/color/48/wind-turbine.png" },
+        { name: "Tabnine", category: "AI Tools", icon: "https://img.icons8.com/color/48/tab.png" },
+        { name: "Amazon Q", category: "AI Tools", icon: "https://img.icons8.com/color/48/amazon.png" },
+        { name: "Codeium", category: "AI Tools", icon: "https://img.icons8.com/color/48/source-code.png" },
+        { name: "Cline", category: "AI Tools", icon: "https://img.icons8.com/color/48/command-line.png" }
     ]
 };
 
