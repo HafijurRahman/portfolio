@@ -4,7 +4,7 @@ A modern, responsive portfolio website showcasing expertise as a Senior Hybrid Q
 
 ## 🚀 Live Demo
 
-Visit the live portfolio: [https://hafijurrahman.github.io](https://hafijurrahman.github.io)
+Visit the live portfolio: [https://hafijurrahman.github.io/portfolio](https://hafijurrahman.github.io/portfolio/)
 
 ## 📋 Table of Contents
 
@@ -435,8 +435,8 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📧 Contact
 
 **Md. Hafijur Rahman**
-- Email: hafijur.r@gmail.com
-- LinkedIn: [linkedin.com/in/hafijur-r](https://www.linkedin.com/in/hafijur-r)
+- Email: hafijurandrahman@gmail.com
+- LinkedIn: [https://www.linkedin.com/in/md-hafijur-rahman](https://www.linkedin.com/in/md-hafijur-rahman)
 - GitHub: [github.com/HafijurRahman](https://github.com/HafijurRahman)
 
 ---
@@ -505,9 +505,9 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📧 Contact
 
 **Md. Hafijur Rahman**
-- Email: contact@example.com *(Update with your email)*
+- Email: hafijurandrahman@gmail.com
 - LinkedIn: [md-hafijur-rahman](https://www.linkedin.com/in/md-hafijur-rahman)
-- GitHub: [@mhrahman-qa](https://github.com/mhrahman-qa)
+- GitHub: [HafijurRahman](https://github.com/HafijurRahman)
 
 ---
 
