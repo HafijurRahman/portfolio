@@ -4,7 +4,7 @@ A modern, responsive portfolio website showcasing expertise as an **AI-Powered H
 
 ## 🚀 Live Demo
 
-Visit the live portfolio: [https://hafijurrahman.github.io/](https://hafijurrahman.github.io/)
+Visit the live portfolio: [hafijurRahman.github.io/portfolio](https://hafijurrahman.github.io/portfolio)
 
 ## ✨ Key Highlights
 
@@ -624,7 +624,7 @@ AI-Powered Hybrid QA Engineer
 - 📧 Email: hafijurandrahman@gmail.com
 - 💼 LinkedIn: [linkedin.com/in/md-hafijur-rahman](https://www.linkedin.com/in/md-hafijur-rahman)
 - 🐙 GitHub: [github.com/HafijurRahman](https://github.com/HafijurRahman)
-- 🌐 Portfolio: [hafijurrahman.github.io](https://hafijurrahman.github.io)
+- 🌐 Portfolio: [hafijurRahman.github.io/portfolio](https://hafijurrahman.github.io/portfolio)
 
 ---
 
