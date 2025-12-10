@@ -213,51 +213,52 @@ const executeOptimalTest = (featureName: string, riskLevel: 'High' | 'Medium' | 
     // Work Experience
     WORK_EXPERIENCE: [
         {
-            company: "Tech Solutions Inc.",
-            role: "Senior QA Automation Engineer",
+            company: "ReliSource Technologies Ltd.",
+            role: "Senior SQA Engineer (Automation & AI)",
             period: "2022 - Present",
-            location: "Remote",
+            location: "Dhaka, Bangladesh",
             highlights: [
                 "Led automation strategy for microservices architecture, achieving 85% test coverage",
                 "Reduced regression testing time by 60% through CI/CD pipeline optimization",
-                "Mentored team of 5 junior QA engineers in automation best practices",
-                "Implemented BDD framework with Cucumber, improving stakeholder collaboration"
+                "Mentored a handful of on/offshore QA engineers in automation best practices",
+                "Implemented BDD framework and improved stakeholder collaboration",
+                "Designed and executed comprehensive test strategies for various platforms",
+                "Automated 1000+ test cases using Selenium, Playwright, Robot, EggPlant, SpecFlow and Cypress frameworks",
+                "Conducted performance testing using JMeter, Load Runner and K6 for peak traffic scenarios",
+                "Collaborated with DevOps team to integrate tests into Jenkins CI/CD pipeline",
+                "Mentored and onboarded new team members"                
             ]
         },
         {
-            company: "Digital Innovations Ltd.",
-            role: "QA Engineer (Hybrid Manual & Automation)",
-            period: "2020 - 2022",
-            location: "New York, USA",
+            company: "ReliSource Technologies Ltd.",
+            role: "SQA Engineer (Manual & Automation)",
+            period: "2019 - 2022",
+            location: "Dhaka, Bangladesh",
             highlights: [
-                "Designed and executed comprehensive test strategies for e-commerce platform",
-                "Automated 200+ test cases using Selenium and Cypress frameworks",
-                "Conducted performance testing using JMeter for peak traffic scenarios",
-                "Collaborated with DevOps team to integrate tests into Jenkins CI/CD pipeline"
-            ]
-        },
-        {
-            company: "StartUp Dynamics",
-            role: "Junior QA Tester",
-            period: "2018 - 2020",
-            location: "San Francisco, USA",
-            highlights: [
-                "Performed manual testing for web and mobile applications",
-                "Created detailed test cases and documented defects in Jira",
+                "Assisted in functional and regression testing of enterprise, pharmaceutical and embedded applications",
+                "Learned software testing fundamentals and SDLC/STLC methodologies",
+                "Contributed to test documentation and test case management",
+                "Gained hands-on experience with SQL database validation",                
+                "Performed manual testing for web, mobile and hardware applications",
+                "Reported, tracked, and monitored bugs using bug tracking applications (e.g., Jira), managing the defect lifecycle to resolution",
                 "Participated in Agile ceremonies and sprint planning sessions",
-                "Initiated automation efforts using Python and Selenium WebDriver"
+                "Initiated automation efforts using Python and Selenium WebDriver",
+                "Performed comprehensive API testing using tools like Postman or similar",
+                "Developed and executed complex SQL queries to validate data integrity",
+                "Provided detailed reports on quality metrics to stakeholders, enabling data-driven decisions",
+                "Participated in debugging and root cause analysis with development teams to resolve critical issues"
             ]
         },
         {
-            company: "Global Tech Services",
-            role: "QA Intern",
-            period: "2017 - 2018",
+            company: "CrazyHD",
+            role: "System Support Executive",
+            period: "2016 - 2019",
             location: "Remote",
             highlights: [
-                "Assisted in functional and regression testing of enterprise applications",
-                "Learned software testing fundamentals and SDLC methodologies",
-                "Contributed to test documentation and test case management",
-                "Gained hands-on experience with SQL database validation"
+                "Conducted technical support to end users",
+                "Ensured clean, organized and tidy system environment",
+                "Designed, developed and implemented system policies and procedures",
+                "Recruited, trained and coordinated the staff members"
             ]
         }
     ],

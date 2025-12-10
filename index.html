@@ -123,21 +123,50 @@
             const transform = `translateY(${scrollY * 0.3}px)`;
 
             return (
-                <section id="about" className="min-h-screen flex items-center justify-center pt-24 relative overflow-hidden">
+                <section id="about" className="min-h-screen flex items-center justify-center pt-24 pb-12 relative overflow-hidden">
                     <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 50% 10%, #22d3ee20, transparent 70%)' }}></div>
-                    <div className="max-w-7xl mx-auto px-6 z-10 text-center" style={{ opacity, transform, transition: 'transform 0s, opacity 0s' }}>
-                        <h2 className="text-xl text-cyan-400 font-mono mb-6 tracking-wide uppercase">{CONFIG.PROFILE.role}</h2>
-                        <h1 className="text-5xl md:text-8xl font-extrabold leading-tight mb-8 text-white">
-                            <span className="gradient-text">Empowering QA with </span>
-                            <br className="hidden sm:block" />
-                            <span className="gradient-text">AI Intelligence</span>, Manual Precision & Automation Speed.
-                        </h1>
-                        <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-3xl mx-auto">{CONFIG.PROFILE.about}</p>
-                        <div className="flex justify-center gap-6">
-                            <DownloadCVButton classes="text-base" />
-                            <a href="#projects" className="flex items-center gap-2 font-semibold px-6 py-2 rounded-full text-cyan-400 border-2 border-cyan-400/50 hover:bg-cyan-500/10 transition-colors">
-                                View Work <i className="ph ph-arrow-right text-lg"></i>
-                            </a>
+                    <div className="max-w-7xl mx-auto px-6 z-10" style={{ opacity, transform, transition: 'transform 0s, opacity 0s' }}>
+                        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+                            {/* Profile Image - Mobile First */}
+                            <div className="flex-shrink-0 lg:order-2">
+                                <div className="relative group">
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
+                                    <div className="relative">
+                                        <img 
+                                            src="images/profile.jpg" 
+                                            alt="Md. Hafijur Rahman - AI-Powered QA Engineer"
+                                            className="w-40 h-40 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-2xl border-4 border-slate-800 shadow-2xl"
+                                            onError={(e) => { 
+                                                console.log('Image failed to load, trying fallback...');
+                                                e.target.src = 'https://ui-avatars.com/api/?name=Hafijur+Rahman&size=512&background=0f172a&color=22d3ee&bold=true&font-size=0.4';
+                                            }}
+                                        />
+                                        <div className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 glass-card px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg border border-cyan-400/30 shadow-lg">
+                                            <div className="flex items-center gap-1.5 sm:gap-2">
+                                                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                                <span className="text-[10px] sm:text-xs font-mono text-cyan-400 whitespace-nowrap">Available for Consultancy</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* Text Content */}
+                            <div className="flex-1 text-center lg:text-left lg:order-1">
+                                <h2 className="text-base sm:text-lg md:text-xl text-cyan-400 font-mono mb-4 sm:mb-6 tracking-wide uppercase">{CONFIG.PROFILE.role}</h2>
+                                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight mb-6 sm:mb-8 text-white">
+                                    <span className="gradient-text">Empowering QA with </span>
+                                    <br className="hidden sm:block" />
+                                    <span className="gradient-text">AI Intelligence</span>, Manual Precision & Automation Speed.
+                                </h1>
+                                <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 sm:mb-10 max-w-2xl mx-auto lg:mx-0">{CONFIG.PROFILE.about}</p>
+                                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                    <DownloadCVButton classes="text-sm sm:text-base w-full sm:w-auto justify-center" />
+                                    <a href="#projects" className="w-full sm:w-auto flex items-center justify-center gap-2 font-semibold px-6 py-2 rounded-full text-cyan-400 border-2 border-cyan-400/50 hover:bg-cyan-500/10 transition-colors text-sm sm:text-base">
+                                        View Work <i className="ph ph-arrow-right text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
