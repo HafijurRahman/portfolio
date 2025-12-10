@@ -1,6 +1,13 @@
 /**
  * Configuration and Data Constants
  * Centralizes all portfolio data for easy maintenance
+ * 
+ * USAGE:
+ * - Update personal info in PROFILE section
+ * - Add new skills in SKILLS section
+ * - Add new projects in PROJECTS array
+ * - Add new tools in TOOLS_TECH array
+ * - Use CONFIG_UTILS for data manipulation
  */
 
 const CONFIG = {
@@ -455,5 +462,48 @@ const executeOptimalTest = (featureName: string, riskLevel: 'High' | 'Medium' | 
     ]
 };
 
-// Make CONFIG available globally in browser
+// Configuration Utility Methods
+const CONFIG_UTILS = {
+    // Get projects by technology
+    getProjectsByTech: (tech) => {
+        return CONFIG.PROJECTS.filter(p => 
+            p.stack.some(t => t.toLowerCase().includes(tech.toLowerCase()))
+        );
+    },
+    
+    // Get tools by category
+    getToolsByCategory: (category) => {
+        return CONFIG.TOOLS_TECH.filter(t => t.category === category);
+    },
+    
+    // Get all unique tool categories
+    getToolCategories: () => {
+        return [...new Set(CONFIG.TOOLS_TECH.map(t => t.category))];
+    },
+    
+    // Get skills by type
+    getSkillsByType: (type) => {
+        return CONFIG.SKILLS[type] || [];
+    },
+    
+    // Get all skill types
+    getSkillTypes: () => {
+        return Object.keys(CONFIG.SKILLS);
+    },
+    
+    // Calculate total tools count
+    getTotalToolsCount: () => {
+        return CONFIG.TOOLS_TECH.length;
+    },
+    
+    // Get work experience by period
+    getCurrentWorkExperience: () => {
+        return CONFIG.WORK_EXPERIENCE.find(job => 
+            job.period.toLowerCase().includes('present')
+        );
+    }
+};
+
+// Make CONFIG and utilities available globally
 window.CONFIG = CONFIG;
+window.CONFIG_UTILS = CONFIG_UTILS;

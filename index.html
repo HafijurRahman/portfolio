@@ -35,6 +35,7 @@
     
     <!-- Utility Functions -->
     <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/componentHelpers.js"></script>
     
     <!-- Portfolio Application - Inline to avoid CORS -->
     <script type="text/babel">
@@ -474,10 +475,10 @@
             </section>
         );
 
-        // ToolsTech Component
+        // ToolsTech Component - Optimized with utilities
         const ToolsTech = () => {
-            const categories = [...new Set(CONFIG.TOOLS_TECH.map(tool => tool.category))];
-            const getToolsByCategory = (category) => CONFIG.TOOLS_TECH.filter(tool => tool.category === category);
+            const categories = CONFIG_UTILS.getToolCategories();
+            const totalTools = CONFIG_UTILS.getTotalToolsCount();
             
             return (
                 <section id="tools" className="py-24 bg-slate-900/40">
@@ -490,7 +491,7 @@
                         
                         <div className="grid md:grid-cols-2 gap-6">
                             {categories.map((category, catIndex) => {
-                                const tools = getToolsByCategory(category);
+                                const tools = CONFIG_UTILS.getToolsByCategory(category);
                                 return (
                                     <div key={catIndex} className="glass-card rounded-xl overflow-hidden border border-slate-700/30 hover:border-cyan-400/30 transition-all duration-300">
                                         <div className="bg-gradient-to-r from-slate-800/80 to-slate-800/40 px-6 py-4 border-b border-slate-700/50">
@@ -520,7 +521,7 @@
                                                                     }} 
                                                                 />
                                                                 <div className="hidden w-5 h-5 items-center justify-center">
-                                                                    <i className="ph ph-code text-lg text-cyan-400"></i>
+                                                                    <i className={`ph ${ComponentHelpers.getCategoryIcon(category)} text-lg text-cyan-400`}></i>
                                                                 </div>
                                                             </div>
                                                             <span className="text-xs font-medium text-slate-300 group-hover:text-cyan-400 transition-colors whitespace-nowrap">
@@ -540,7 +541,7 @@
                             <div className="inline-flex items-center gap-2 glass-card px-6 py-3 rounded-full">
                                 <i className="ph ph-stack text-cyan-400 text-xl"></i>
                                 <span className="text-sm font-medium text-slate-300">
-                                    <span className="text-cyan-400 font-bold">{CONFIG.TOOLS_TECH.length}</span> tools across <span className="text-cyan-400 font-bold">{categories.length}</span> categories
+                                    <span className="text-cyan-400 font-bold">{totalTools}</span> tools across <span className="text-cyan-400 font-bold">{categories.length}</span> categories
                                 </span>
                             </div>
                         </div>
